@@ -26,7 +26,10 @@ pm_read_header(int fd, pm_bundle_header *header)
     lseek(fd, 0, SEEK_SET);
 
     r = read(fd, header, sizeof(pm_bundle_header));
+#ifdef DEBUG
     fprintf(stderr, "* r: %d\n", r);
+#endif
+
     return r;
 }
 
@@ -49,8 +52,11 @@ pm_load_node(int fd, int nlevels, uint32_t *lvl_sizes, int level)
 
 
     read (fd, &nchildren, sizeof(nchildren));
-    fprintf (stderr, "* children %d\n", nchildren);
     self->nchildren = nchildren;
+
+#ifdef DEBUG
+    fprintf (stderr, "* children %d\n", nchildren);
+#endif
 
     if (nchildren > 0)
         self->children = malloc (sizeof (TreeNode *) * nchildren);
@@ -77,7 +83,10 @@ pm_load_tree(int fd, int start)
 
     lseek(fd, start, SEEK_SET);
     read(fd, &magic, sizeof(magic));
+
+#ifdef DEBUG
     fprintf (stderr, "* %X\n", magic);
+#endif
 
     if (magic != hr_magic) {
         fprintf (stderr, "Not a tree root\n");
