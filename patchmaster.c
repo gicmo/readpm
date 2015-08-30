@@ -60,6 +60,8 @@ pm_load_node(int fd, int nlevels, uint32_t *lvl_sizes, int level)
 
     if (nchildren > 0)
         self->children = malloc (sizeof (TreeNode *) * nchildren);
+    else
+        self->children = NULL;
 
     for (i = 0; i < nchildren; i++) {
         TreeNode *child;
