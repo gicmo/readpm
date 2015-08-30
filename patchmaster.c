@@ -110,3 +110,22 @@ pm_load_tree(int fd, int start)
     root = pm_load_node(fd, levels, lvl_sizes, 0);
     return root;
 }
+
+void
+pm_free(TreeNode **node)
+{
+    TreeNode *self;
+
+    if (node == NULL || *node == NULL) {
+        return;
+    }
+
+    self = *node;
+
+    for (size_t i = 0; i < self->nchildren; i++) {
+        pm_free(self->children + i);
+    }
+
+    free(self);
+    *node = NULL;
+}

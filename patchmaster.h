@@ -144,6 +144,8 @@ typedef struct PulseSeries {
 TreeNode *pm_load_node(int fd, int nlevels, uint32_t *lvl_sizes, int level);
 TreeNode *pm_load_tree(int fd, int start);
 
+void pm_free(TreeNode **node);
+
 int pm_read_header(int fd, pm_bundle_header *header);
 int pm_find_bundle_item(pm_bundle_header *header, const char *ext);
 
