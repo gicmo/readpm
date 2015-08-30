@@ -151,11 +151,14 @@ int main(int argc, char **argv) {
 
     start = header.items[pos].start;
     node = pm_load_tree(fd, start);
+    pm_free(&node);
 
     pos = pm_find_bundle_item(&header, ".pul");
     start = header.items[pos].start;
     node = pm_load_tree(fd, start);
     dump_pul(node);
+
+    pm_free(&node);
 
     over_and_out:
     if (fd > -1)
